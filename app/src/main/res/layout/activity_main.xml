@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!-- Board layout with an image instead of a grid -->
+    <ImageView
+        android:id="@+id/boardImage"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/board" /> <!-- Replace with your board image -->
+
+    <!-- Player 1 container -->
+    <FrameLayout
+        android:id="@+id/player1Container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/boardImage"
+        android:layout_alignTop="@id/boardImage">
+        <ImageView
+            android:id="@+id/player1Piece"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/player1_piece" />
+    </FrameLayout>
+
+    <!-- Player 2 container -->
+    <FrameLayout
+        android:id="@+id/player2Container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/boardImage"
+        android:layout_alignTop="@id/boardImage">
+        <ImageView
+            android:id="@+id/player2Piece"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/player2_piece" />
+    </FrameLayout>
+
+    <!-- Player 1 position -->
+    <TextView
+        android:id="@+id/player1Position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/boardImage"
+        android:layout_marginTop="16dp"
+        android:text="Player 1: 1" />
+
+    <!-- Player 2 position -->
+    <TextView
+        android:id="@+id/player2Position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/player1Position"
+        android:layout_marginTop="8dp"
+        android:text="Player 2: 1" />
+
+    <!-- Dice roll button -->
+    <Button
+        android:id="@+id/rollDiceButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/player2Position"
+        android:layout_marginTop="16dp"
+        android:text="Roll Dice" />
+
+    <!-- Question TextView -->
+    <TextView
+        android:id="@+id/questionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rollDiceButton"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"
+        android:text="Question" />
+
+    <!-- Answer input field -->
+    <EditText
+        android:id="@+id/answerEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/questionTextView"
+        android:layout_marginTop="8dp"
+        android:inputType="number"
+        android:visibility="gone" />
+
+    <!-- Submit answer button -->
+    <Button
+        android:id="@+id/submitAnswerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/answerEditText"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        android:text="Submit Answer" />
+
+    <TextView
+        android:id="@+id/gameLogTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/submitAnswerButton"
+        android:layout_marginTop="16dp"
+        android:text="Game Log"
+        android:padding="16dp"
+        android:scrollbars="vertical"
+        android:maxHeight="200dp" />
+
+
+</RelativeLayout>
