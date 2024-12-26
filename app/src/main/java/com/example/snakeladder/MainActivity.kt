@@ -9,7 +9,6 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
 
     private lateinit var boardImage: ImageView
-    private lateinit var player1PositionText: TextView
     private lateinit var player2PositionText: TextView
     private lateinit var rollDiceButton: Button
     private lateinit var questionTextView: TextView
@@ -35,9 +34,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // Initialize views
-        boardImage = findViewById(R.id.boardImage) // ImageView for the board
-        player1PositionText = findViewById(R.id.player1Position)
-        player2PositionText = findViewById(R.id.player2Position)
+        boardImage = findViewById(R.id.boardImage) // ImageView for the boardplayer1PositionText
         rollDiceButton = findViewById(R.id.rollDiceButton)
         questionTextView = findViewById(R.id.questionTextView)
         answerEditText = findViewById(R.id.answerEditText)
@@ -50,6 +47,11 @@ class MainActivity : AppCompatActivity() {
 
         rollDiceButton.setOnClickListener { rollDice() }
         submitAnswerButton.setOnClickListener { checkAnswer() }
+
+
+        val gameLogTextView: TextView = findViewById(R.id.gameLogTextView)
+        gameLogTextView.movementMethod = android.text.method.ScrollingMovementMethod()
+
 
         // Update initial positions
         updatePlayerPosition(1, player1Pos)
@@ -92,18 +94,35 @@ class MainActivity : AppCompatActivity() {
         val correctAnswer = currentQuestion!!.first + currentQuestion!!.second
 
         if (userAnswer != null && userAnswer == correctAnswer) {
-            logGame("Correct!")
+            logGame("Correct! Climbing the ladder.")
+            val currentPlayerPosition = if (currentPlayer == 1) player1Pos else player2Pos
+            val newPosition = ladders[currentPlayerPosition] ?: currentPlayerPosition
+
+            if (currentPlayer == 1) {
+                player1Pos = newPosition
+            } else {
+                player2Pos = newPosition
+            }
+
+            updatePlayerPosition(currentPlayer, newPosition)
         } else {
-            logGame("Incorrect.")
+            logGame("Incorrect. Staying in place.")
         }
 
+        // Hide question and reset UI
         questionTextView.visibility = View.GONE
         answerEditText.visibility = View.GONE
         submitAnswerButton.visibility = View.GONE
         rollDiceButton.isEnabled = true
         questionActive = false
+
+        // Check for a win after moving (if any)
+        checkWin()
+
+        // Switch to the other player for their turn
         switchPlayer()
     }
+
 
     private fun movePlayer(diceRoll: Int) {
         var newPosition = if (currentPlayer == 1) player1Pos + diceRoll else player2Pos + diceRoll
@@ -112,10 +131,8 @@ class MainActivity : AppCompatActivity() {
 
         if (currentPlayer == 1) {
             player1Pos = newPosition
-            player1PositionText.text = "Player 1: $player1Pos"
         } else {
             player2Pos = newPosition
-            player2PositionText.text = "Player 2: $player2Pos"
         }
         updatePlayerPosition(currentPlayer, newPosition)
 
@@ -124,12 +141,10 @@ class MainActivity : AppCompatActivity() {
         } else if (snakes.containsKey(newPosition)) {
             if (currentPlayer == 1) {
                 player1Pos = snakes[newPosition]!!
-                player1PositionText.text = "Player 1: $player1Pos"
                 updatePlayerPosition(currentPlayer, player1Pos)
                 logGame("player 1 bites")
             } else {
                 player2Pos = snakes[newPosition]!!
-                player2PositionText.text = "Player 2: $player2Pos"
                 updatePlayerPosition(currentPlayer, player2Pos)
                 logGame("player 2 bites")
             }
@@ -158,8 +173,6 @@ class MainActivity : AppCompatActivity() {
     private fun resetGame() {
         player1Pos = 1
         player2Pos = 1
-        player1PositionText.text = "Player 1: 1"
-        player2PositionText.text = "Player 2: 1"
         updatePlayerPosition(1, 1)
         updatePlayerPosition(2, 1)
         currentPlayer = 1

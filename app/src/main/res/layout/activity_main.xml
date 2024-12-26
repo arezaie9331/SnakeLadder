@@ -47,34 +47,40 @@
             android:src="@drawable/player2_piece" />
     </FrameLayout>
 
-    <!-- Player 1 position -->
-    <TextView
-        android:id="@+id/player1Position"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/boardImage"
-        android:layout_marginTop="16dp"
-        android:text="Player 1: 1" />
 
-    <!-- Player 2 position -->
     <TextView
-        android:id="@+id/player2Position"
-        android:layout_width="wrap_content"
+        android:id="@+id/gameLogTextView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/player1Position"
-        android:layout_marginTop="8dp"
-        android:text="Player 2: 1" />
+        android:layout_below="@id/submitAnswerButton"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="98dp"
+        android:maxHeight="200dp"
+        android:padding="16dp"
+        android:scrollbars="vertical"
+        android:text="Game Log" />
+
+
+
+    <!-- Player 1 position -->
 
     <!-- Dice roll button -->
+
+    <!-- Question TextView -->
+
     <Button
         android:id="@+id/rollDiceButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/player2Position"
+        android:layout_below="@id/boardImage"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="153dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="155dp"
         android:text="Roll Dice" />
 
-    <!-- Question TextView -->
     <TextView
         android:id="@+id/questionTextView"
         android:layout_width="wrap_content"
@@ -104,16 +110,7 @@
         android:visibility="gone"
         android:text="Submit Answer" />
 
-    <TextView
-        android:id="@+id/gameLogTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/submitAnswerButton"
-        android:layout_marginTop="16dp"
-        android:text="Game Log"
-        android:padding="16dp"
-        android:scrollbars="vertical"
-        android:maxHeight="200dp" />
+
 
 
 </RelativeLayout>
